@@ -1,0 +1,14 @@
+{
+  "name": "sb-proxy",
+  "version": "0.0.1",
+  "description": "Starts an HTTP proxy server to the SponsorBlock API. Also runs a healthcheck every minute against the main server and falls back to a mirror when the main server is unhealthy.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "lucashmsilva",
+  "license": "ISC",
+  "dependencies": {
+    "http-proxy": "^1.18.1"
+  }
+}
