@@ -1,0 +1,6 @@
+services:
+ server:
+  image: lucashmsilva/sponsor-block-proxy:latest
+  ports:
+    - 4480:4480
+  restart: always

@@ -5,7 +5,7 @@ const https = require('https');
 const httpProxy = require('http-proxy');
 const proxy = httpProxy.createProxyServer({});
 
-const CHEKING_LOOP_SLEEP = 60 * 1000;
+const CHECKING_LOOP_SLEEP_LOOP_SLEEP = 60 * 1000;
 const SERVER_REQUEST_TIMEOUT = 30 * 1000;
 
 let CURRENT_SB_SERVER_URL = 'https://sponsor.ajay.app';
@@ -76,7 +76,7 @@ function startServerCheckingLoop() {
     }
 
     console.log(CURRENT_SB_SERVER_URL);
-  }, CHEKING_LOOP_SLEEP);
+  }, CHECKING_LOOP_SLEEP_LOOP_SLEEP);
 };
 
 function startPorxyServer() {
