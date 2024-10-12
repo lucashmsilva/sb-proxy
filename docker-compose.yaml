@@ -7,3 +7,9 @@ services:
     ports:
       - 4480:4480
     restart: always
+    networks:
+      - ponte
+
+networks:
+  ponte:
+    external: true
