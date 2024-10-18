@@ -5,7 +5,7 @@ services:
     container_name: sb-proxy
     image: lucashmsilva/sponsor-block-proxy:latest
     ports:
-      - 4480:4480
+      - 4480:80
     restart: always
     networks:
       - ponte

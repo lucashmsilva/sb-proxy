@@ -90,7 +90,7 @@ function startPorxyServer() {
         target: CURRENT_SB_SERVER_URL
       });
     }
-  }).listen(4480);
+  }).listen(80);
 };
 
 startPorxyServer();
