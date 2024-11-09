@@ -8,8 +8,8 @@ services:
       - 4480:80
     restart: always
     networks:
-      - ponte
+      - homelab
 
 networks:
-  ponte:
+  homelab:
     external: true
