@@ -1,6 +1,6 @@
 Starts an HTTP proxy server to the SponsorBlock API. Also runs a healthcheck every minute against the main server and falls back to a mirror when the main server is unhealthy.
 
-To run locally, just run `npm install` and then `npm start`. the server will start at `http://localhost:4480/`
+To run locally, just run `npm install` and then `npm start`. the server will start at `http://localhost:4480/`, or execute with Docker Compose: `docker compose up -d`. Note that the compose file uses a pre-built image from Docker Hub, so i is not intended for local development.
 
 To deploy to a remote server, I use a simple NGINX setup:
 ```
