@@ -1,0 +1,50 @@
+name: Build Image and Deploy
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Login to Docker Hub
+      id: docker-hub-login
+      env:
+        username: ${{secrets.DOCKERHUB_USERNAME}}
+        password: ${{secrets.DOCKERHUB_PASSWORD}}
+      run: docker login -u $username -p $password
+
+    - name: Build the Docker image
+      id: docker-image-build
+      run: docker build -t lucashmsilva/sponsor-block-proxy:latest .
+
+    - name: Push image
+      id: docker-image-push
+      run: docker push ${{secrets.DOCKERHUB_USERNAME}}/sponsor-block-proxy:latest
+
+  deploy:
+    needs: docker
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Redeploy stack in Portainer
+        id: portainer-redeploy
+        run: |
+          curl --location --request PUT '${{vars.PORTAINER_API_URL}}/stacks/${{vars.PORTAINER_STACK_ID}}/git/redeploy?endpointId=${{vars.PORTAINER_ENV_ID}}' \
+            --header 'Content-Type: application/json' \
+            --header 'Accept: application/json' \
+            --header 'X-API-KEY: ${{secrets.PORTAINER_API_TOKEN}}' \
+            --data '{
+              "stackName": "sb-proxy",
+              "prune": true,
+              "pullImage": true,
+              "repositoryAuthentication": true,
+              "repositoryPassword": "${{secrets.PORTAINER_GITHUB_PULL_PAT}}",
+              "repositoryUsername": "${{github.repository_owner}}"
+            }'
